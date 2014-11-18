@@ -18,9 +18,11 @@ module Rubspot
     end
 
     def save
-      params = Rubspot::ContactRepresentation.new(self).to_hash
+      params = Rubspot::ContactRepresentation.new(self).to_json
       response = Rubspot::Base::post("http://api.hubapi.com/contacts/v1/contact/createOrUpdate/email/#{self.email}/?hapikey=#{Rubspot::API_KEY}&portalId=#{Rubspot::PORTAL_ID}", params)
-      response.ok?
+      self.vid = JSON.parse(response.body)["vid"]
+      return false unless response.ok?
+      true
     end
   end
 end

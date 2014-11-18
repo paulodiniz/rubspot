@@ -7,8 +7,8 @@ module Rubspot
     property :vid
     property :properties,
               setter: lambda { |val, args|
-                                  self.email = val["email"]["value"]
-                                  self.firstname = val["firstname"]["value"]
+                                  self.email = val["email"]["value"] if val["email"]
+                                  self.firstname = val["firstname"]["value"] if val["firstname"]
                               },
               getter: lambda { |_|
                                   properties_array = []

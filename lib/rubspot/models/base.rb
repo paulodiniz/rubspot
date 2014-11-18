@@ -13,7 +13,7 @@ module Rubspot
     def self.post(uri, params = {})
       client = HTTPClient.new
       client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      client.post(uri, params.to_json)
+      client.post(uri, params, {'Content-Type' => 'application/json'} )
     end
 
   end
